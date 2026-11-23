@@ -7,15 +7,19 @@ from pathlib import Path
 import sys
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
-PROJECT_ROOT = PACKAGE_ROOT.parent
+# Canonical runs start inside ``ov_stitcher/``; flattened checkouts place this
+# entrypoint at the repository root. Resolve data/work paths from the matching
+# project root in either layout.
+PROJECT_ROOT = (PACKAGE_ROOT.parent
+                if PACKAGE_ROOT.name == 'ov_stitcher' else PACKAGE_ROOT)
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 os.environ.setdefault('HF_ENDPOINT', 'https://hf-mirror.com')
 
 # Importing these modules registers the model and custom dataset types.
-from ov_stitcher import datasets as _datasets  # noqa: F401
-from ov_stitcher.models import OVStitcherSegmentation as _segmentor  # noqa: F401
+import datasets as _datasets  # noqa: F401
+from models import OVStitcherSegmentation as _segmentor  # noqa: F401
 from mmengine.config import Config, DictAction
 from mmengine.runner import Runner
 

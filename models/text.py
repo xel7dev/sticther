@@ -4,7 +4,12 @@ import json
 
 import torch
 
-from ..prompts.imagenet_template import openai_imagenet_template
+# Support both ``ov_stitcher.models`` in the canonical layout and top-level
+# ``models`` imports in flattened checkouts.
+if __package__ == 'models':
+    from prompts.imagenet_template import openai_imagenet_template
+else:
+    from ..prompts.imagenet_template import openai_imagenet_template
 
 
 def read_class_names(path):

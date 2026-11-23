@@ -1,10 +1,9 @@
 _base_ = '../_base_/evaluation.py'
-from pathlib import Path
 
 
 # model settings
 model = dict(
-    name_path=str(Path(__file__).resolve().parents[1] / 'classes' / 'context60.txt'),
+    name_path='{{fileDirname}}/../classes/context60.txt',
     instance_mask_path='data/region_masks/context',
     prob_thd=0.1,
 )

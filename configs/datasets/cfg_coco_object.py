@@ -1,10 +1,9 @@
 _base_ = '../_base_/evaluation.py'
-from pathlib import Path
 
 
 # model settings
 model = dict(
-    name_path=str(Path(__file__).resolve().parents[1] / 'classes' / 'coco_object.txt'),
+    name_path='{{fileDirname}}/../classes/coco_object.txt',
     instance_mask_path='data/region_masks/coco',
     prob_thd=0.2,
 )

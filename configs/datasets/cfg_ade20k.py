@@ -1,21 +1,21 @@
 _base_ = '../_base_/evaluation.py'
-from pathlib import Path
 
 
 # model settings
 model = dict(
-    name_path=str(Path(__file__).resolve().parents[1] / 'classes' / 'ade20k.txt'),
+    name_path='{{fileDirname}}/../classes/ade20k.txt',
     instance_mask_path='data/region_masks/ade',
 )
 
 # dataset settings
 dataset_type = 'ADE20KDataset'
-data_root = 'data/ADEChallengeData2016/'
+data_root = '/mnt/data0/zhangbaiqi/Documents/dataset/ADE/ADEChallengeData2016/'
 
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='Resize', scale=(2048, 448), keep_ratio=True),
-    dict(type='LoadAnnotations', reduce_zero_label=True),
+    # ADE20KDataset handles zero-label reduction; the transform argument is deprecated.
+    dict(type='LoadAnnotations'),
     dict(type='PackSegInputs')
 ]
 

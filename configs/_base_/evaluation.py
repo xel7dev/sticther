@@ -1,14 +1,10 @@
-from pathlib import Path
-
-
 # Shared settings for the eight evaluation datasets.
-PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 model = dict(
     type='OVStitcherSegmentation',
     clip_type='openai',
     model_type='ViT-B/16',
     dino_type='dino_vitb8',
-    template_path=str(PACKAGE_ROOT / 'prompts' / 'class_biased_template.json'),
+    template_path='{{fileDirname}}/../../prompts/class_biased_template.json',
     slide_stride=112,
     slide_crop=336,
 )

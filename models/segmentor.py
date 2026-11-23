@@ -13,7 +13,13 @@ from mmseg.models.segmentors import BaseSegmentor
 from mmseg.registry import MODELS
 from open_clip import create_model, tokenize
 
-from ..utils import UnNormalize
+# The canonical layout imports this as ``ov_stitcher.models``; a flattened
+# checkout imports it as top-level ``models``. Resolve the sibling utility in
+# either package layout without changing the inference path.
+if __package__ == 'models':
+    from ov_stitcher_utils import UnNormalize
+else:
+    from ..ov_stitcher_utils import UnNormalize
 from .clip_stitching import StitchedCLIP
 from .features import make_sliding_windows, stitch_dino_features
 from .masks import correct_predictions_by_region, load_instance_mask
